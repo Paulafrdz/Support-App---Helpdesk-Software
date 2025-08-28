@@ -1,0 +1,39 @@
+package dev.paula.api_helpdesk_software.request;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
+
+import java.time.LocalDate;
+
+import org.junit.jupiter.api.Test;
+
+public class RequestEntityTest {
+  
+    @Test
+    void testRequestEntity_InitializationWithIdAndNameAndDateRequestAndThemeRequestAndDescription(){
+        RequestEntity request = new RequestEntity(1L,"Pepe", LocalDate.of(2025, 9, 28), "problema", "me da fallo el sistema");
+
+        assertThat(request).isInstanceOf(RequestEntity.class);
+        assertThat(request.getClass().getDeclaredFields().length, is(equalTo(5)));
+
+    }
+
+    @Test
+    void testRequestEntity() {
+        RequestEntity request = new RequestEntity();
+        request.setId(1L);
+        request.setName("Pepe");
+        request.setDateRequest(LocalDate.of(2025, 8, 28));
+        request.setThemeRequest("problema");
+        request.setDescription("me da fallo el sistema");
+
+        assertThat(request.getId(), is(equalTo(1L)));
+        assertThat(request.getName(), is(equalTo("Pepe")));
+        assertThat(request.getDateRequest(), is(equalTo(LocalDate.of(2025, 8, 28))));
+        assertThat(request.getThemeRequest(), is(equalTo("problema")));
+        assertThat(request.getDescription(), is(equalTo("me da fallo el sistema")));
+
+    }
+}
