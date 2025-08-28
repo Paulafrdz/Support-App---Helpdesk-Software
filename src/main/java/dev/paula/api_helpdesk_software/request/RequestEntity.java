@@ -1,5 +1,7 @@
 package dev.paula.api_helpdesk_software.request;
 
+import java.time.LocalDate;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -13,13 +15,20 @@ public class RequestEntity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    private LocalDate dateRequest;
+    private String themeRequest;
+    private String description;
+
 
     public RequestEntity() {
     }
 
-    public RequestEntity(Long id, String name){
+    public RequestEntity(Long id, String name, LocalDate dateRequest, String themeRequest, String description ){
         this.id = id;
         this.name = name;
+        this.dateRequest = dateRequest;
+        this.themeRequest = themeRequest;
+        this.description =  description;
     }
 
     public Long getId() {
@@ -36,6 +45,30 @@ public class RequestEntity {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public LocalDate getDateRequest() {
+        return dateRequest;
+    }
+
+    public void setDateRequest(LocalDate dateRequest) {
+        this.dateRequest = dateRequest;
+    }
+
+    public String getThemeRequest() {
+        return themeRequest;
+    }
+
+    public void setThemeRequest(String themeRequest) {
+        this.themeRequest = themeRequest;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
 
