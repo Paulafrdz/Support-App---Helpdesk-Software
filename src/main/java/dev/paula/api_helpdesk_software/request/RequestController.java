@@ -2,28 +2,42 @@ package dev.paula.api_helpdesk_software.request;
 
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import dev.paula.api_helpdesk_software.implementation.IGenericService;
+import dev.paula.api_helpdesk_software.request.RequestDTORequest;
+import dev.paula.api_helpdesk_software.request.RequestDTOResponse;
 
 @RestController
 @RequestMapping(path = ("${api-endpoint}/requests"))
 public class RequestController {
 
-    private final IGenericService<RequestEntity> service;
+    private final IGenericService<RequestDTOResponse, RequestDTORequest> service;
 
-    public RequestController(IGenericService<RequestEntity> service) {
+    public RequestController(IGenericService<RequestDTOResponse, RequestDTORequest> service) {
         this.service = service;
     }
     
     
     @GetMapping("")
-    public List<RequestEntity> index(){
+    public List<RequestDTOResponse> index(){
 
         return service.getEntities();
     } 
 
+    @PostMapping("")
+    public ResponseEntity<RequestDTOResponse> storeEntity(@RequestBody RequestDTORequest dtoRequest) {
+        
+        if (dtoRequest.name().isBlank()) return ResponseEntity.badRequest().build();
+        RequestDTOResponse entityStored = service.storeEntity(dtoRequest);
+        if (entityStored == null) return ResponseEntity.noContent().build();
+
+        return ResponseEntity.status(201).body(entityStored);
+    }
 
 }
