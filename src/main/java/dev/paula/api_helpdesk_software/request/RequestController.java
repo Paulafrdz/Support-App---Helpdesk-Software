@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import dev.paula.api_helpdesk_software.implementation.IGenericService;
-import dev.paula.api_helpdesk_software.request.RequestDTORequest;
-import dev.paula.api_helpdesk_software.request.RequestDTOResponse;
 
 @RestController
 @RequestMapping(path = ("${api-endpoint}/requests"))
