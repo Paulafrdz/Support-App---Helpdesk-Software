@@ -21,8 +21,9 @@ public class RequestController {
     
     @GetMapping("")
     public List<RequestEntity> index(){
-        // RequestEntity request1 = new RequestEntity(1L,"Pepe", LocalDate.of(2025, 9, 28), "problema", "me da fallo el sistema");
 
         return service.getEntities();
     } 
+
+
 }

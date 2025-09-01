@@ -19,4 +19,6 @@ public class RequestServiceImpl implements IGenericService<RequestEntity>{
     public List<RequestEntity> getEntities() {
         return repository.findAll();
     }
+
+    
 }
