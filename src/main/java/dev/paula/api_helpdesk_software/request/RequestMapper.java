@@ -8,6 +8,9 @@ public class RequestMapper {
     public static RequestEntity toEntity(RequestDTORequest dtoRequest) {
         RequestEntity request = new RequestEntity();
         request.setName(dtoRequest.name());
+        request.setDateRequest(dtoRequest.dateRequest());
+        request.setThemeRequest(dtoRequest.themeRequest());
+        request.setDescription(dtoRequest.description());
 
         return request;
     }

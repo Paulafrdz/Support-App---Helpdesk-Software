@@ -7,6 +7,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -20,11 +21,14 @@ public class RequestEntity {
     private String themeRequest;
     private String description;
 
+    
+
+    
 
     public RequestEntity() {
     }
 
-    public RequestEntity(Long id, String name, LocalDate dateRequest, String themeRequest, String description ){
+    public RequestEntity(Long id, String name, LocalDate dateRequest, String themeRequest, String description){
         this.id = id;
         this.name = name;
         this.dateRequest = dateRequest;
