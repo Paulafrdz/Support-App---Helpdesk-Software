@@ -1,6 +1,8 @@
 package dev.paula.api_helpdesk_software.builder;
 
 import dev.paula.api_helpdesk_software.request.RequestEntity;
+import dev.paula.api_helpdesk_software.topic.TopicEntity;
+
 import java.time.LocalDate;
 
 public class RequestEntityBuilder implements IRequestBuilder {
@@ -36,8 +38,8 @@ public class RequestEntityBuilder implements IRequestBuilder {
     }
 
     @Override
-    public RequestEntityBuilder themeRequest(String themeRequest) {
-        request.setThemeRequest(themeRequest);
+    public RequestEntityBuilder topic(TopicEntity topic) {
+        request.setTopic(topic);
         return this;
     }
 

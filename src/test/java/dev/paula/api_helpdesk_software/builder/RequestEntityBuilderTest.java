@@ -9,17 +9,20 @@ import java.time.LocalDate;
 import org.junit.jupiter.api.Test;
 
 import dev.paula.api_helpdesk_software.request.RequestEntity;
+import dev.paula.api_helpdesk_software.topic.TopicEntity;
 
 public class RequestEntityBuilderTest {
     @Test
     void testRequestEntityBuilderWithStategy1(){
+
+        TopicEntity topic = new TopicEntity("Problema técnico");
 
         RequestEntity request = RequestEntity.builder()
             .id(1L)
             .name("Pepe")
             .description("me da fallo el sistema")
             .dateRequest(LocalDate.of(2025, 9, 28))
-            .themeRequest("problema")
+            .topic(topic)
             .build();
 
         
@@ -28,7 +31,7 @@ public class RequestEntityBuilderTest {
         assertThat(request.getName(), is("Pepe"));
         assertThat(request.getDescription(), is("me da fallo el sistema"));
         assertThat(request.getDateRequest(), is(LocalDate.of(2025, 9, 28)));
-        assertThat(request.getThemeRequest(), is("problema"));
+        assertThat(request.getTopic().getName(), is("Problema técnico"));
         
     }
 }

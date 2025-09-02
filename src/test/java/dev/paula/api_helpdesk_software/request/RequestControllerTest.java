@@ -22,6 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import dev.paula.api_helpdesk_software.implementation.IGenericService;
+import dev.paula.api_helpdesk_software.topic.TopicEntity;
 
 @WebMvcTest(controllers = RequestController.class)
 public class RequestControllerTest {
@@ -38,8 +39,12 @@ public class RequestControllerTest {
     @Test
     @DisplayName("Should return all requests")
     void textIndex_ShouldReturnARequests() throws Exception{
-        RequestDTOResponse request1 = new RequestDTOResponse(1L,"Pepe", LocalDate.of(2025, 9, 28), "problema", "me da fallo el sistema");
-        RequestDTOResponse request2 = new RequestDTOResponse(1L,"Juan", LocalDate.of(2025, 2, 18), "erro", "fallo el sistema");
+
+        TopicEntity topic = new TopicEntity( "problema");
+
+
+        RequestDTOResponse request1 = new RequestDTOResponse(1L,"Pepe", LocalDate.of(2025, 9, 28), topic, "me da fallo el sistema");
+        RequestDTOResponse request2 = new RequestDTOResponse(1L,"Juan", LocalDate.of(2025, 2, 18), topic, "fallo el sistema");
         List<RequestDTOResponse> requests = List.of(request1, request2);
         String json = mapper.writeValueAsString(requests);
 
@@ -56,8 +61,11 @@ public class RequestControllerTest {
 
     @Test
     void testStore_ShouldReturnStatus201() throws Exception{
-        RequestDTORequest dto = new RequestDTORequest("Pepe", LocalDate.of(2025, 9, 28), "problema", "me da fallo el sistema");
-        RequestDTOResponse request1 = new RequestDTOResponse(1L,"Pepe", LocalDate.of(2025, 9, 28), "problema", "me da fallo el sistema");
+        
+        TopicEntity topic = new TopicEntity("problema");
+
+        RequestDTORequest dto = new RequestDTORequest("Pepe", LocalDate.of(2025, 9, 28), topic, "me da fallo el sistema");
+        RequestDTOResponse request1 = new RequestDTOResponse(1L,"Pepe", LocalDate.of(2025, 9, 28), topic, "me da fallo el sistema");
         String json = mapper.writeValueAsString(dto);
 
         when(requestService.storeEntity(dto)).thenReturn(request1);
@@ -72,8 +80,10 @@ public class RequestControllerTest {
 
     @Test
     void testStoreRequest_ShouldReturnStatus400_IfNameIsEmpty() throws Exception {
+        
+        TopicEntity topic = new TopicEntity("problema");
 
-        RequestDTORequest dto = new RequestDTORequest("", LocalDate.of(2025, 9, 28), "problema", "me da fallo el sistema");
+        RequestDTORequest dto = new RequestDTORequest("", LocalDate.of(2025, 9, 28), topic, "me da fallo el sistema");
         String json = mapper.writeValueAsString(dto);
         when(requestService.storeEntity(dto)).thenReturn(null);
         mockMvc.perform(post("/api/v1/requests").content(json).contentType("application/json"))
@@ -82,7 +92,10 @@ public class RequestControllerTest {
 
     @Test
     void testStoreRequest_ShouldReturnNoContent_IfServiceDoesNotReturnAnyValue() throws Exception {
-        RequestDTORequest dto = new RequestDTORequest("Pepe", LocalDate.of(2025, 9, 28), "problema", "me da fallo el sistema");
+        
+        TopicEntity topic = new TopicEntity("problema");
+
+        RequestDTORequest dto = new RequestDTORequest("Pepe", LocalDate.of(2025, 9, 28), topic, "me da fallo el sistema");
         String json = mapper.writeValueAsString(dto);
 
         when(requestService.storeEntity(dto)).thenReturn(null);

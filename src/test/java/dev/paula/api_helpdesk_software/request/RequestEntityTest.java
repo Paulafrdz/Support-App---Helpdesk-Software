@@ -9,11 +9,15 @@ import java.time.LocalDate;
 
 import org.junit.jupiter.api.Test;
 
+import dev.paula.api_helpdesk_software.topic.TopicEntity;
+
 public class RequestEntityTest {
   
     @Test
     void testRequestEntity_InitializationWithIdAndNameAndDateRequestAndThemeRequestAndDescription(){
-        RequestEntity request = new RequestEntity(1L,"Pepe", LocalDate.of(2025, 9, 28), "problema", "me da fallo el sistema");
+
+        TopicEntity topic = new TopicEntity( "problema");
+        RequestEntity request = new RequestEntity(1L,"Pepe", LocalDate.of(2025, 9, 28), topic, "me da fallo el sistema");
 
         assertThat(request).isInstanceOf(RequestEntity.class);
         assertThat(request.getClass().getDeclaredFields().length, is(equalTo(5)));
@@ -26,13 +30,16 @@ public class RequestEntityTest {
         request.setId(1L);
         request.setName("Pepe");
         request.setDateRequest(LocalDate.of(2025, 8, 28));
-        request.setThemeRequest("problema");
+        
+        TopicEntity topic = new TopicEntity("problema");
+        request.setTopic(topic);
+
         request.setDescription("me da fallo el sistema");
 
         assertThat(request.getId(), is(equalTo(1L)));
         assertThat(request.getName(), is(equalTo("Pepe")));
         assertThat(request.getDateRequest(), is(equalTo(LocalDate.of(2025, 8, 28))));
-        assertThat(request.getThemeRequest(), is(equalTo("problema")));
+        assertThat(request.getTopic().getName(), is("problema"));
         assertThat(request.getDescription(), is(equalTo("me da fallo el sistema")));
 
     }

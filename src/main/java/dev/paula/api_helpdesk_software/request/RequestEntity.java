@@ -3,11 +3,13 @@ package dev.paula.api_helpdesk_software.request;
 import java.time.LocalDate;
 
 import dev.paula.api_helpdesk_software.builder.RequestEntityBuilder;
+import dev.paula.api_helpdesk_software.topic.TopicEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -18,21 +20,21 @@ public class RequestEntity {
     private Long id;
     private String name;
     private LocalDate dateRequest;
-    private String themeRequest;
     private String description;
 
-    
-
+    @ManyToOne
+    @JoinColumn(name = "topic_id", nullable = false)
+    private TopicEntity topic;
     
 
     public RequestEntity() {
     }
 
-    public RequestEntity(Long id, String name, LocalDate dateRequest, String themeRequest, String description){
+    public RequestEntity(Long id, String name, LocalDate dateRequest, TopicEntity topic, String description){
         this.id = id;
         this.name = name;
         this.dateRequest = dateRequest;
-        this.themeRequest = themeRequest;
+        this.topic = topic;
         this.description =  description;
     }
 
@@ -60,14 +62,6 @@ public class RequestEntity {
         this.dateRequest = dateRequest;
     }
 
-    public String getThemeRequest() {
-        return themeRequest;
-    }
-
-    public void setThemeRequest(String themeRequest) {
-        this.themeRequest = themeRequest;
-    }
-
     public String getDescription() {
         return description;
     }
@@ -79,6 +73,14 @@ public class RequestEntity {
 
     public static RequestEntityBuilder builder(){
         return new RequestEntityBuilder();
+    }
+
+    public TopicEntity getTopic() {
+        return topic;
+    }
+
+    public void setTopic(TopicEntity topic) {
+        this.topic = topic;
     }
 
 }
