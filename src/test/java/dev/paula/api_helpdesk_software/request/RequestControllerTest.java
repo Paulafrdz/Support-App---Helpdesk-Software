@@ -14,6 +14,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -62,13 +63,13 @@ public class RequestControllerTest {
     @Test
     void testStore_ShouldReturnStatus201() throws Exception{
         
-        TopicEntity topic = new TopicEntity("problema");
+        TopicEntity topic = new TopicEntity("Problema técnico");
 
         RequestDTORequest dto = new RequestDTORequest("Pepe", LocalDate.of(2025, 9, 28), topic, "me da fallo el sistema");
         RequestDTOResponse request1 = new RequestDTOResponse(1L,"Pepe", LocalDate.of(2025, 9, 28), topic, "me da fallo el sistema");
         String json = mapper.writeValueAsString(dto);
 
-        when(requestService.storeEntity(dto)).thenReturn(request1);
+        when(requestService.storeEntity(any(RequestDTORequest.class))).thenReturn(request1);
         MockHttpServletResponse response = mockMvc.perform(post("/api/v1/requests").content(json).contentType("application/json"))
             .andExpect(status().isCreated())
             .andReturn()
