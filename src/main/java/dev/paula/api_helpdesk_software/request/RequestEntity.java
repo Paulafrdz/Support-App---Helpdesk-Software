@@ -2,6 +2,7 @@ package dev.paula.api_helpdesk_software.request;
 
 import java.time.LocalDate;
 
+import dev.paula.api_helpdesk_software.builder.RequestEntityBuilder;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -72,6 +73,8 @@ public class RequestEntity {
     }
 
 
-
+    public static RequestEntityBuilder builder(){
+        return new RequestEntityBuilder();
+    }
 
 }
