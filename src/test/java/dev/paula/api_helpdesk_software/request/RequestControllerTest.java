@@ -1,6 +1,7 @@
 package dev.paula.api_helpdesk_software.request;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.junit.jupiter.api.DisplayName;
@@ -44,8 +45,8 @@ public class RequestControllerTest {
         TopicEntity topic = new TopicEntity( "problema");
 
 
-        RequestDTOResponse request1 = new RequestDTOResponse(1L,"Pepe", LocalDate.of(2025, 9, 28), topic, "me da fallo el sistema");
-        RequestDTOResponse request2 = new RequestDTOResponse(1L,"Juan", LocalDate.of(2025, 2, 18), topic, "fallo el sistema");
+        RequestDTOResponse request1 = new RequestDTOResponse(1L,"Pepe", LocalDate.of(2025, 9, 28), topic, "me da fallo el sistema", LocalDateTime.of(2025, 9, 28, 12, 0));
+        RequestDTOResponse request2 = new RequestDTOResponse(1L,"Juan", LocalDate.of(2025, 2, 18), topic, "fallo el sistema", LocalDateTime.of(2025, 10, 28, 12, 0));
         List<RequestDTOResponse> requests = List.of(request1, request2);
         String json = mapper.writeValueAsString(requests);
 
@@ -65,8 +66,8 @@ public class RequestControllerTest {
         
         TopicEntity topic = new TopicEntity("Problema técnico");
 
-        RequestDTORequest dto = new RequestDTORequest("Pepe", LocalDate.of(2025, 9, 28), topic, "me da fallo el sistema");
-        RequestDTOResponse request1 = new RequestDTOResponse(1L,"Pepe", LocalDate.of(2025, 9, 28), topic, "me da fallo el sistema");
+        RequestDTORequest dto = new RequestDTORequest("Pepe", LocalDate.of(2025, 9, 28), 1, "me da fallo el sistema");
+        RequestDTOResponse request1 = new RequestDTOResponse(1L,"Pepe", LocalDate.of(2025, 9, 28), 1, "me da fallo el sistema", LocalDateTime.of(2025, 9, 28, 12, 0));
         String json = mapper.writeValueAsString(dto);
 
         when(requestService.storeEntity(any(RequestDTORequest.class))).thenReturn(request1);
@@ -84,7 +85,7 @@ public class RequestControllerTest {
         
         TopicEntity topic = new TopicEntity("problema");
 
-        RequestDTORequest dto = new RequestDTORequest("", LocalDate.of(2025, 9, 28), topic, "me da fallo el sistema");
+        RequestDTORequest dto = new RequestDTORequest("", LocalDate.of(2025, 9, 28), topicId, "me da fallo el sistema");
         String json = mapper.writeValueAsString(dto);
         when(requestService.storeEntity(dto)).thenReturn(null);
         mockMvc.perform(post("/api/v1/requests").content(json).contentType("application/json"))

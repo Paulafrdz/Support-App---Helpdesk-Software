@@ -2,21 +2,23 @@ package dev.paula.api_helpdesk_software.request;
 
 import org.springframework.stereotype.Component;
 
+import dev.paula.api_helpdesk_software.topic.TopicEntity;
+
 @Component
 public class RequestMapper {
     
-    public static RequestEntity toEntity(RequestDTORequest dtoRequest) {
+    public static RequestEntity toEntity(RequestDTORequest dtoRequest, TopicEntity topic) {
         RequestEntity request = new RequestEntity();
         request.setName(dtoRequest.name());
         request.setDateRequest(dtoRequest.dateRequest());
-        request.setTopic(dtoRequest.topic());
+        request.setTopic(topic);
         request.setDescription(dtoRequest.description());
 
         return request;
     }
 
     public static RequestDTOResponse toDTO(RequestEntity entity) {
-        RequestDTOResponse dtoResponse = new RequestDTOResponse(entity.getId(), entity.getName(), entity.getDateRequest(), entity.getTopic(), entity.getDescription());
+        RequestDTOResponse dtoResponse = new RequestDTOResponse(entity.getId(), entity.getName(), entity.getDateRequest(), entity.getTopic(), entity.getDescription(), entity.getCreatedAt());
 
         return dtoResponse;
     }

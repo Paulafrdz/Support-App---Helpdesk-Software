@@ -1,6 +1,7 @@
 package dev.paula.api_helpdesk_software.request;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import dev.paula.api_helpdesk_software.builder.RequestEntityBuilder;
 import dev.paula.api_helpdesk_software.topic.TopicEntity;
@@ -22,20 +23,22 @@ public class RequestEntity {
     private LocalDate dateRequest;
     private String description;
 
+    private LocalDateTime createdAt;
+
     @ManyToOne
     @JoinColumn(name = "topic_id", nullable = false)
     private TopicEntity topic;
-    
 
     public RequestEntity() {
     }
 
-    public RequestEntity(Long id, String name, LocalDate dateRequest, TopicEntity topic, String description){
+    public RequestEntity(Long id, String name, LocalDate dateRequest, TopicEntity topic, String description, LocalDateTime createdAt){
         this.id = id;
         this.name = name;
         this.dateRequest = dateRequest;
         this.topic = topic;
         this.description =  description;
+        this.createdAt =   createdAt;
     }
 
     public Long getId() {
@@ -70,11 +73,6 @@ public class RequestEntity {
         this.description = description;
     }
 
-
-    public static RequestEntityBuilder builder(){
-        return new RequestEntityBuilder();
-    }
-
     public TopicEntity getTopic() {
         return topic;
     }
@@ -83,4 +81,16 @@ public class RequestEntity {
         this.topic = topic;
     }
 
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+    
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+
+    public static RequestEntityBuilder builder(){
+        return new RequestEntityBuilder();
+    }
 }

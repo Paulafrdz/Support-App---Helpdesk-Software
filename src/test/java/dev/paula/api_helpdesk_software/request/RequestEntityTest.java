@@ -6,6 +6,7 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import org.junit.jupiter.api.Test;
 
@@ -17,10 +18,10 @@ public class RequestEntityTest {
     void testRequestEntity_InitializationWithIdAndNameAndDateRequestAndThemeRequestAndDescription(){
 
         TopicEntity topic = new TopicEntity( "problema");
-        RequestEntity request = new RequestEntity(1L,"Pepe", LocalDate.of(2025, 9, 28), topic, "me da fallo el sistema");
+        RequestEntity request = new RequestEntity(1L,"Pepe", LocalDate.of(2025, 9, 28), topic, "me da fallo el sistema", LocalDateTime.of(2025, 9, 28, 12, 0, 0));
 
         assertThat(request).isInstanceOf(RequestEntity.class);
-        assertThat(request.getClass().getDeclaredFields().length, is(equalTo(5)));
+        assertThat(request.getClass().getDeclaredFields().length, is(equalTo(6)));
 
     }
 
