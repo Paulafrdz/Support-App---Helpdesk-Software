@@ -66,8 +66,8 @@ public class RequestControllerTest {
         
         TopicEntity topic = new TopicEntity("Problema técnico");
 
-        RequestDTORequest dto = new RequestDTORequest("Pepe", LocalDate.of(2025, 9, 28), 1, "me da fallo el sistema");
-        RequestDTOResponse request1 = new RequestDTOResponse(1L,"Pepe", LocalDate.of(2025, 9, 28), 1, "me da fallo el sistema", LocalDateTime.of(2025, 9, 28, 12, 0));
+        RequestDTORequest dto = new RequestDTORequest("Pepe", LocalDate.of(2025, 9, 28), 1L, "me da fallo el sistema");
+        RequestDTOResponse request1 = new RequestDTOResponse(1L,"Pepe", LocalDate.of(2025, 9, 28), topic, "me da fallo el sistema", LocalDateTime.of(2025, 9, 28, 12, 0));
         String json = mapper.writeValueAsString(dto);
 
         when(requestService.storeEntity(any(RequestDTORequest.class))).thenReturn(request1);
@@ -85,7 +85,7 @@ public class RequestControllerTest {
         
         TopicEntity topic = new TopicEntity("problema");
 
-        RequestDTORequest dto = new RequestDTORequest("", LocalDate.of(2025, 9, 28), topicId, "me da fallo el sistema");
+        RequestDTORequest dto = new RequestDTORequest("", LocalDate.of(2025, 9, 28), 1L, "me da fallo el sistema");
         String json = mapper.writeValueAsString(dto);
         when(requestService.storeEntity(dto)).thenReturn(null);
         mockMvc.perform(post("/api/v1/requests").content(json).contentType("application/json"))
@@ -97,7 +97,7 @@ public class RequestControllerTest {
         
         TopicEntity topic = new TopicEntity("problema");
 
-        RequestDTORequest dto = new RequestDTORequest("Pepe", LocalDate.of(2025, 9, 28), topic, "me da fallo el sistema");
+        RequestDTORequest dto = new RequestDTORequest("Pepe", LocalDate.of(2025, 9, 28), 1L, "me da fallo el sistema");
         String json = mapper.writeValueAsString(dto);
 
         when(requestService.storeEntity(dto)).thenReturn(null);
