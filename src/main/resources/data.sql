@@ -1,3 +1,3 @@
-INSERT INTO topic (id, name) VALUES (default, 'Problema técnico');
-INSERT INTO topic (id, name) VALUES (default, 'Consulta general');
-INSERT INTO topic (id, name) VALUES (default, 'Soporte de facturación');
+INSERT INTO topics (name) VALUES ('Problema técnico');
+INSERT INTO topics (name) VALUES ('Consulta general');
+INSERT INTO topics (name) VALUES ('Soporte de facturación');
