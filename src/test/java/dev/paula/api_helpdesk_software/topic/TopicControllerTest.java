@@ -14,6 +14,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
+import dev.paula.api_helpdesk_software.exceptions.TopicNotFoundExceptions;
 import dev.paula.api_helpdesk_software.implementation.ITopicService;
 
 @WebMvcTest(TopicController.class)
@@ -51,6 +52,16 @@ class TopicControllerTest {
             .andExpect(status().isOk())
             .andExpect(jsonPath("$.id").value(1L))
             .andExpect(jsonPath("$.name").value("Problema técnico'"));
+    }
+
+    @Test
+    void testGetTopicById_ShouldReturn404_WhenNotFound() throws Exception{
+        when(topicService.findById(99L))
+            .thenThrow(new TopicNotFoundExceptions("Tema no encontrado con id 99L no existe."));
+
+        mockMvc.perform(get("/api/v1/topics/99"))
+            .andExpect(status().isNotFound())
+            .andExpect(status().reason("No se ha encontrado el tema"));
     }
 }
 
