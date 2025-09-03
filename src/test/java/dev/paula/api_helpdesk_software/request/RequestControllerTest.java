@@ -83,7 +83,6 @@ public class RequestControllerTest {
     @Test
     void testStoreRequest_ShouldReturnStatus400_IfNameIsEmpty() throws Exception {
         
-        TopicEntity topic = new TopicEntity("problema");
 
         RequestDTORequest dto = new RequestDTORequest("", LocalDate.of(2025, 9, 28), 1L, "me da fallo el sistema");
         String json = mapper.writeValueAsString(dto);
@@ -95,8 +94,6 @@ public class RequestControllerTest {
     @Test
     void testStoreRequest_ShouldReturnNoContent_IfServiceDoesNotReturnAnyValue() throws Exception {
         
-        TopicEntity topic = new TopicEntity("problema");
-
         RequestDTORequest dto = new RequestDTORequest("Pepe", LocalDate.of(2025, 9, 28), 1L, "me da fallo el sistema");
         String json = mapper.writeValueAsString(dto);
 
@@ -104,4 +101,27 @@ public class RequestControllerTest {
         mockMvc.perform(post("/api/v1/requests").content(json).contentType("application/json"))
                 .andExpect(status().isNoContent());
     }
-}   
+
+    @Test 
+    void testGetSortedRequests_ReturnSortedList() throws Exception {
+        TopicEntity topic = new TopicEntity("Problema técnico");
+
+
+        RequestDTOResponse request1 = new RequestDTOResponse(1L,"Pepe", LocalDate.of(2025, 9, 28), topic, "me da fallo el sistema",LocalDateTime.of(2025, 9, 28, 12, 0));
+        RequestDTOResponse request2 = new RequestDTOResponse(2L,"Juan", LocalDate.of(2025, 9, 28), topic, "me da fallo el sistema", LocalDateTime.of(2025, 9, 28, 12, 0));
+
+        
+        List<RequestDTOResponse> sortedRequests = List.of(request1, request2);
+        String json = mapper.writeValueAsString(sortedRequests);
+        when(requestService.getEntities()).thenReturn(sortedRequests);
+        MockHttpServletResponse response = mockMvc.perform(get("/api/v1/requests"))
+        .andExpect(status().isOk())
+        .andReturn()
+        .getResponse();
+
+        assertThat(response.getStatus()).isEqualTo(200);
+        assertThat(response.getContentAsString()).isEqualTo(json);
+
+    }   
+
+}
