@@ -24,7 +24,7 @@ public class RequestController {
     
     
     @GetMapping("")
-    public List<RequestDTOResponse> index(){
+    public List<RequestDTOResponse> getEntities(){
 
         return service.getEntities();
     } 
@@ -45,8 +45,8 @@ public class RequestController {
 
     @GetMapping("/{id}")
     public ResponseEntity<RequestDTOResponse> show(@PathVariable("id") Long id) {
-        RequestDTOResponse country = service.getEntityById(id);
-        return ResponseEntity.ok().body(country);
+        RequestDTOResponse requestId = service.getEntityById(id);
+        return ResponseEntity.ok().body(requestId);
     }
     
 }

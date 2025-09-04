@@ -3,10 +3,13 @@ package dev.paula.api_helpdesk_software.technician;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.stereotype.Service;
+
 import dev.paula.api_helpdesk_software.exceptions.TechnicianNotFoundExceptions;
 import dev.paula.api_helpdesk_software.implementation.ITechnicianService;
 
-public class TechnicianServiceImpl implements  ITechnicianService<TechnicianDTOResponse, TechnicianDTORequest>{
+@Service
+public class TechnicianServiceImpl implements ITechnicianService<TechnicianDTOResponse, TechnicianDTORequest>{
     
     private final TechnicianRepository repository;
 
