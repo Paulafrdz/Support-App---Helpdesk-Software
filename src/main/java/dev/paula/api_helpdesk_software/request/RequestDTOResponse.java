@@ -11,5 +11,6 @@ public record RequestDTOResponse(
     LocalDate dateRequest, 
     TopicEntity topic, 
     String description,
-    LocalDateTime created_at) {
+    LocalDateTime created_at, 
+    boolean attended) {
 } 

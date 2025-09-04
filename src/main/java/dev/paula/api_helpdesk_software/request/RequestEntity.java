@@ -28,17 +28,19 @@ public class RequestEntity {
     @ManyToOne
     @JoinColumn(name = "topic_id", nullable = false)
     private TopicEntity topic;
+    private boolean attended;
 
     public RequestEntity() {
     }
 
-    public RequestEntity(Long id, String name, LocalDate dateRequest, TopicEntity topic, String description, LocalDateTime createdAt){
+    public RequestEntity(Long id, String name, LocalDate dateRequest, TopicEntity topic, String description, LocalDateTime createdAt, boolean attended){
         this.id = id;
         this.name = name;
         this.dateRequest = dateRequest;
         this.topic = topic;
         this.description =  description;
         this.createdAt =   createdAt;
+        this.attended = attended;
     }
 
     public Long getId() {
@@ -90,7 +92,17 @@ public class RequestEntity {
     }
 
 
+    public boolean isAttended() {
+        return attended;
+    }
+
+    public void setAttended(boolean attended) {
+        this.attended = attended;
+    }
+
+
     public static RequestEntityBuilder builder(){
         return new RequestEntityBuilder();
     }
+
 }
