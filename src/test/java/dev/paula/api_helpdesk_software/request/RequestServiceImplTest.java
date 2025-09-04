@@ -89,7 +89,7 @@ public class RequestServiceImplTest {
 
         RequestNotFoundExceptions exception = assertThrows(
         RequestNotFoundExceptions.class,
-        () -> requestService.showById(id));
+        () -> requestService.getEntityById(id));
 
         assertThat(exception.getMessage(), is(equalTo("No se ha encontrado la solicitud con id: " + id )));
     }

@@ -45,7 +45,7 @@ public class RequestController {
 
     @GetMapping("/{id}")
     public ResponseEntity<RequestDTOResponse> show(@PathVariable("id") Long id) {
-        RequestDTOResponse country = service.showById(id);
+        RequestDTOResponse country = service.getEntityById(id);
         return ResponseEntity.ok().body(country);
     }
     

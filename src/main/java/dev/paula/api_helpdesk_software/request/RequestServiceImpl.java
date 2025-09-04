@@ -54,7 +54,7 @@ public class RequestServiceImpl implements IGenericService<RequestDTOResponse, R
     }
 
    @Override
-    public RequestDTOResponse showById(Long id) {
+    public RequestDTOResponse getEntityById(Long id) {
         return repository.findById(id)
                 .map(RequestMapper::toDTO)
                 .orElseThrow(() -> new RequestNotFoundExceptions("No se ha encontrado la solicitud con id: " + id ));    
