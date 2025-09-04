@@ -47,9 +47,9 @@ public class RequestServiceImplTest {
 
         List<RequestEntity> requestsMock = List.of(
                 new RequestEntity(1L, "Pepe", LocalDate.of(2025, 9, 28), topic, "me da fallo el sistema",
-                        LocalDateTime.of(2025, 9, 28, 12, 0)),
+                        LocalDateTime.of(2025, 9, 28, 12, 0), true),
                 new RequestEntity(1L, "Juan", LocalDate.of(2025, 9, 28), topic, "me da fallo el sistema",
-                        LocalDateTime.of(2025, 9, 28, 12, 0)));
+                        LocalDateTime.of(2025, 9, 28, 12, 0), true));
 
         when(repository.findAll()).thenReturn(requestsMock);
         List<RequestDTOResponse> requests = requestService.getEntities();
@@ -66,9 +66,9 @@ public class RequestServiceImplTest {
         TopicEntity topic = new TopicEntity("Problema técnico");
         topic.setId(2L); 
 
-        RequestDTORequest dto = new RequestDTORequest("Julia", LocalDate.of(2025, 8, 29), 2L, "El sistema da problemas");
+        RequestDTORequest dto = new RequestDTORequest("Julia", LocalDate.of(2025, 8, 29), 2L, "El sistema da problemas", false);
 
-        RequestEntity savedEntity = new RequestEntity(3L, "Julia", LocalDate.of(2025, 8, 29), topic, "El sistema da problemas", LocalDateTime.of(2025, 8, 29, 10, 0));
+        RequestEntity savedEntity = new RequestEntity(3L, "Julia", LocalDate.of(2025, 8, 29), topic, "El sistema da problemas", LocalDateTime.of(2025, 8, 29, 10, 0), false);
 
         when(topicRepository.findById(2L)).thenReturn(Optional.of(topic));
         when(repository.save(Mockito.any(RequestEntity.class))).thenReturn(savedEntity);

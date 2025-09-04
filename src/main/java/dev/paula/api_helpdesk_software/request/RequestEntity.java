@@ -11,6 +11,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 
 @Entity
@@ -24,6 +25,11 @@ public class RequestEntity {
     private String description;
 
     private LocalDateTime createdAt;
+
+     @PrePersist
+    public void prePersist() {
+        createdAt = LocalDateTime.now();
+    }
 
     @ManyToOne
     @JoinColumn(name = "topic_id", nullable = false)

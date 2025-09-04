@@ -1,5 +1,7 @@
 package dev.paula.api_helpdesk_software.request;
 
+import java.time.LocalDateTime;
+
 import org.springframework.stereotype.Component;
 
 import dev.paula.api_helpdesk_software.topic.TopicEntity;
@@ -13,7 +15,9 @@ public class RequestMapper {
         request.setDateRequest(dtoRequest.dateRequest());
         request.setTopic(topic);
         request.setDescription(dtoRequest.description());
+        request.setCreatedAt(LocalDateTime.now());
         request.setAttended(dtoRequest.attended());
+
 
         return request;
     }

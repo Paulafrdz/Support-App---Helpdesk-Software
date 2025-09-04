@@ -18,10 +18,10 @@ public class RequestEntityTest {
     void testRequestEntity_InitializationWithIdAndNameAndDateRequestAndThemeRequestAndDescription(){
 
         TopicEntity topic = new TopicEntity( "problema");
-        RequestEntity request = new RequestEntity(1L,"Pepe", LocalDate.of(2025, 9, 28), topic, "me da fallo el sistema", LocalDateTime.of(2025, 9, 28, 12, 0, 0));
+        RequestEntity request = new RequestEntity(1L,"Pepe", LocalDate.of(2025, 9, 28), topic, "me da fallo el sistema", LocalDateTime.of(2025, 9, 28, 12, 0, 0), true);
 
         assertThat(request).isInstanceOf(RequestEntity.class);
-        assertThat(request.getClass().getDeclaredFields().length, is(equalTo(6)));
+        assertThat(request.getClass().getDeclaredFields().length, is(equalTo(7)));
 
     }
 

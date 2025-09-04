@@ -45,8 +45,8 @@ public class RequestControllerTest {
         TopicEntity topic = new TopicEntity( "problema");
 
 
-        RequestDTOResponse request1 = new RequestDTOResponse(1L,"Pepe", LocalDate.of(2025, 9, 28), topic, "me da fallo el sistema", LocalDateTime.of(2025, 9, 28, 12, 0));
-        RequestDTOResponse request2 = new RequestDTOResponse(1L,"Juan", LocalDate.of(2025, 2, 18), topic, "fallo el sistema", LocalDateTime.of(2025, 10, 28, 12, 0));
+        RequestDTOResponse request1 = new RequestDTOResponse(1L,"Pepe", LocalDate.of(2025, 9, 28), topic, "me da fallo el sistema", LocalDateTime.of(2025, 9, 28, 12, 0), false);
+        RequestDTOResponse request2 = new RequestDTOResponse(1L,"Juan", LocalDate.of(2025, 2, 18), topic, "fallo el sistema", LocalDateTime.of(2025, 10, 28, 12, 0), false);
         List<RequestDTOResponse> requests = List.of(request1, request2);
         String json = mapper.writeValueAsString(requests);
 
@@ -66,8 +66,8 @@ public class RequestControllerTest {
         
         TopicEntity topic = new TopicEntity("Problema técnico");
 
-        RequestDTORequest dto = new RequestDTORequest("Pepe", LocalDate.of(2025, 9, 28), 1L, "me da fallo el sistema");
-        RequestDTOResponse request1 = new RequestDTOResponse(1L,"Pepe", LocalDate.of(2025, 9, 28), topic, "me da fallo el sistema", LocalDateTime.of(2025, 9, 28, 12, 0));
+        RequestDTORequest dto = new RequestDTORequest("Pepe", LocalDate.of(2025, 9, 28), 1L, "me da fallo el sistema", false);
+        RequestDTOResponse request1 = new RequestDTOResponse(1L,"Pepe", LocalDate.of(2025, 9, 28), topic, "me da fallo el sistema", LocalDateTime.of(2025, 9, 28, 12, 0), false);
         String json = mapper.writeValueAsString(dto);
 
         when(requestService.storeEntity(any(RequestDTORequest.class))).thenReturn(request1);
@@ -84,7 +84,7 @@ public class RequestControllerTest {
     void testStoreRequest_ShouldReturnStatus400_IfNameIsEmpty() throws Exception {
         
 
-        RequestDTORequest dto = new RequestDTORequest("", LocalDate.of(2025, 9, 28), 1L, "me da fallo el sistema");
+        RequestDTORequest dto = new RequestDTORequest("", LocalDate.of(2025, 9, 28), 1L, "me da fallo el sistema", false);
         String json = mapper.writeValueAsString(dto);
         when(requestService.storeEntity(dto)).thenReturn(null);
         mockMvc.perform(post("/api/v1/requests").content(json).contentType("application/json"))
@@ -94,7 +94,7 @@ public class RequestControllerTest {
     @Test
     void testStoreRequest_ShouldReturnNoContent_IfServiceDoesNotReturnAnyValue() throws Exception {
         
-        RequestDTORequest dto = new RequestDTORequest("Pepe", LocalDate.of(2025, 9, 28), 1L, "me da fallo el sistema");
+        RequestDTORequest dto = new RequestDTORequest("Pepe", LocalDate.of(2025, 9, 28), 1L, "me da fallo el sistema", false);
         String json = mapper.writeValueAsString(dto);
 
         when(requestService.storeEntity(dto)).thenReturn(null);
@@ -107,8 +107,8 @@ public class RequestControllerTest {
         TopicEntity topic = new TopicEntity("Problema técnico");
 
 
-        RequestDTOResponse request1 = new RequestDTOResponse(1L,"Pepe", LocalDate.of(2025, 9, 28), topic, "me da fallo el sistema",LocalDateTime.of(2025, 9, 28, 12, 0));
-        RequestDTOResponse request2 = new RequestDTOResponse(2L,"Juan", LocalDate.of(2025, 9, 28), topic, "me da fallo el sistema", LocalDateTime.of(2025, 9, 28, 12, 0));
+        RequestDTOResponse request1 = new RequestDTOResponse(1L,"Pepe", LocalDate.of(2025, 9, 28), topic, "me da fallo el sistema",LocalDateTime.of(2025, 9, 28, 12, 0), false);
+        RequestDTOResponse request2 = new RequestDTOResponse(2L,"Juan", LocalDate.of(2025, 9, 28), topic, "me da fallo el sistema", LocalDateTime.of(2025, 9, 28, 12, 0), false);
 
         
         List<RequestDTOResponse> sortedRequests = List.of(request1, request2);
