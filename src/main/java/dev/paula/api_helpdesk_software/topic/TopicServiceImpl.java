@@ -26,7 +26,7 @@ public class TopicServiceImpl  implements ITopicService<TopicDTOResponse> {
     }
 
     @Override
-    public TopicDTOResponse findById(Long id) {
+    public TopicDTOResponse getEntityById(Long id) {
         TopicEntity topic = repository.findById(id).orElseThrow(() -> new TopicNotFoundExceptions("Tema no encontrado con id " + id + " no existe."));
         return TopicMapper.toDTO(topic);
     }

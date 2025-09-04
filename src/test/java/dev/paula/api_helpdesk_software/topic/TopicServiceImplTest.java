@@ -28,7 +28,7 @@ class TopicServiceImplTest {
 
     @Test
     void testGetAllEntities_ShouldReturnListOfTopics() {
-        // Arrange
+        
         TopicEntity topic1 = new TopicEntity("Problema técnico");
         topic1.setId(1L);
         TopicEntity topic2 = new TopicEntity("Consulta general");
@@ -36,10 +36,8 @@ class TopicServiceImplTest {
 
         when(repository.findAll()).thenReturn(Arrays.asList(topic1, topic2));
 
-        // Act
         List<TopicDTOResponse> result = topicService.getAllEntities();
 
-        // Assert
         assertThat(result.size(), equalTo(2));
         assertThat(result.get(0).id(), equalTo(1L));
         assertThat(result.get(0).name(), equalTo("Problema técnico"));
@@ -49,28 +47,25 @@ class TopicServiceImplTest {
 
     @Test
     void testFindById_ShouldReturnTopic_WhenExists() {
-        // Arrange
+        
         TopicEntity topic = new TopicEntity("Problema técnico");
         topic.setId(1L);
         when(repository.findById(1L)).thenReturn(Optional.of(topic));
 
-        // Act
-        TopicDTOResponse result = topicService.findById(1L);
+        TopicDTOResponse result = topicService.getEntityById(1L);
 
-        // Assert
         assertThat(result.id(), equalTo(1L));
         assertThat(result.name(), equalTo("Problema técnico"));
     }
 
     @Test
     void testFindById_ShouldThrowException_WhenNotFound() {
-        // Arrange
+        
         when(repository.findById(99L)).thenReturn(Optional.empty());
 
-        // Act & Assert
         TopicNotFoundExceptions exception = assertThrows(
             TopicNotFoundExceptions.class,
-            () -> topicService.findById(99L)
+            () -> topicService.getEntityById(99L)
         );
 
         assertThat(exception.getMessage(), equalTo("Tema no encontrado con id 99 no existe."));

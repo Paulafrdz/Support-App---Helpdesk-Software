@@ -46,7 +46,7 @@ class TopicControllerTest {
     @Test
     void testGetTopicById_ShouldReturnTopic() throws Exception {
         TopicDTOResponse topic = new TopicDTOResponse(1L, "Problema técnico'");
-        when(topicService.findById(1L)).thenReturn(topic);
+        when(topicService.getEntityById(1L)).thenReturn(topic);
 
         mockMvc.perform(get("/api/v1/topics/1"))
             .andExpect(status().isOk())
@@ -56,7 +56,7 @@ class TopicControllerTest {
 
     @Test
     void testGetTopicById_ShouldReturn404_WhenNotFound() throws Exception{
-        when(topicService.findById(99L))
+        when(topicService.getEntityById(99L))
             .thenThrow(new TopicNotFoundExceptions("Tema no encontrado con id 99L no existe."));
 
         mockMvc.perform(get("/api/v1/topics/99"))

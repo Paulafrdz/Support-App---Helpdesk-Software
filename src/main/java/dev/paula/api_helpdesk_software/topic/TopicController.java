@@ -26,6 +26,6 @@ public class TopicController {
 
     @GetMapping("/{id}")
         public TopicDTOResponse getTopicById(@PathVariable Long id) {
-            return service.findById(id);
+            return service.getEntityById(id);
         }
 }

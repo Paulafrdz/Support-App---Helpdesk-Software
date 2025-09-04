@@ -5,6 +5,6 @@ import java.util.List;
 public interface ITopicService <T>{
 
     public List<T> getAllEntities();
-    public T findById(Long id);
+    public T getEntityById(Long id);
     
 } 
