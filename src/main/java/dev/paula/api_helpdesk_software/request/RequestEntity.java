@@ -3,14 +3,17 @@ package dev.paula.api_helpdesk_software.request;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import dev.paula.api_helpdesk_software.attendance.AttendanceEntity;
 import dev.paula.api_helpdesk_software.builder.RequestEntityBuilder;
 import dev.paula.api_helpdesk_software.topic.TopicEntity;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 
@@ -35,6 +38,9 @@ public class RequestEntity {
     @JoinColumn(name = "topic_id", nullable = false)
     private TopicEntity topic;
     private boolean attended;
+
+    @OneToOne(mappedBy= "request", cascade = CascadeType.ALL)
+    private AttendanceEntity attendance;
 
     public RequestEntity() {
     }

@@ -15,15 +15,20 @@ public class RequestMapper {
         request.setDateRequest(dtoRequest.dateRequest());
         request.setTopic(topic);
         request.setDescription(dtoRequest.description());
-        request.setCreatedAt(LocalDateTime.now());
         request.setAttended(dtoRequest.attended());
-
 
         return request;
     }
 
     public static RequestDTOResponse toDTO(RequestEntity entity) {
-        RequestDTOResponse dtoResponse = new RequestDTOResponse(entity.getId(), entity.getName(), entity.getDateRequest(), entity.getTopic(), entity.getDescription(), entity.getCreatedAt(), entity.isAttended());
+        RequestDTOResponse dtoResponse = new RequestDTOResponse(
+            entity.getId(), 
+            entity.getName(), 
+            entity.getDateRequest(), 
+            entity.getTopic(), 
+            entity.getDescription(), 
+            entity.getCreatedAt(), 
+            entity.isAttended());
 
         return dtoResponse;
     }
